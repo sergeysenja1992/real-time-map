@@ -48,7 +48,7 @@ class PermissionWebFilter : WebFilter {
         webFilterChain: WebFilterChain
     ): Mono<Void> {
         return exchange.session.flatMap {
-            if (it.getCurrentUser() == null) {
+            if (it.getCurrentUser() == null && exchange.request.path.toString() != "/api/user/login") {
                 val response = exchange.getResponse();
                 response.setStatusCode(UNAUTHORIZED);
                 response.setComplete()

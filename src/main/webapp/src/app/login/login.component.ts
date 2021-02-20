@@ -1,10 +1,9 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { finalize, pluck, takeUntil } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
-import { UUID } from 'angular2-uuid';
 
 declare let gapi: any;
 
