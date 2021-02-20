@@ -1,7 +1,9 @@
 package pp.ua.ssenko.rsoket.repository
 
+import org.springframework.stereotype.Component
 import pp.ua.ssenko.rsoket.domain.User
 
+@Component
 class UserRepository(
     private val storage: Storage<User>
 ) {
@@ -10,6 +12,10 @@ class UserRepository(
 
     fun findByEmail(email: String): User? {
         return storage.getAll().filter { it.email == email }.firstOrNull()
+    }
+
+    fun save(user: User) {
+        storage.update(user)
     }
 
 }

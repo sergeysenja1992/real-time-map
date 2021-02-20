@@ -19,6 +19,7 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven("https://oss.jfrog.org/artifactory/oss-snapshot-local/")
 }
 
 val webappDir = "$projectDir/src/main/webapp"
@@ -60,6 +61,9 @@ tasks.register<Exec>("installAngular") {
 }
 
 dependencies {
+
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:1.4.3")
+
     implementation("org.springframework.boot:spring-boot-starter-rsocket")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

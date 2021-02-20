@@ -9,9 +9,13 @@ import org.springframework.context.annotation.Bean
 import org.springframework.messaging.rsocket.RSocketRequester
 import org.springframework.util.MimeTypeUtils
 import org.springframework.web.reactive.function.client.WebClient
+import pp.ua.ssenko.rsoket.domain.User
+import pp.ua.ssenko.rsoket.repository.UserRepository
+import pp.ua.ssenko.rsoket.utils.log
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
+import java.lang.Thread.sleep
 import java.net.URI
 import java.time.Duration
 
@@ -19,31 +23,28 @@ import java.time.Duration
 class RSocketApplicationTests {
 
     @Autowired
-    lateinit var rSocketRequester: RSocketRequester;
+    lateinit var userRepository: UserRepository
 
     @Test
-    fun contextLoads() {
-
-        val verifier= rSocketRequester.route("messages")
-                .retrieveFlux(Message::class.java)
-                .log()
-                .`as` { StepVerifier.create(it) }
-                .consumeNextWith { it -> assertThat(it.body).isEqualTo("test message") }
-                .consumeNextWith { it -> assertThat(it.body).isEqualTo("test message2") }
-                .thenCancel()
-                .verifyLater()
-        rSocketRequester.route("send").data("test message").send().then().block()
-        rSocketRequester.route("send").data("test message2").send().then().block()
-
-        verifier.verify(Duration.ofSeconds(5))
+    fun test() {
+        log.info("start")
+        userRepository.save(User("email1", "name"))
+        sleep(201)
+        log.info("start loop")
+        for (i in 0..100) {
+            userRepository.save(User("email2-${i}", "name"))
+        }
+        log.info("end loop")
+        sleep(101)
+        for (i in 0..100) {
+            userRepository.save(User("email3-${i}", "name"))
+        }
+        sleep(100)
+        for (i in 0..100) {
+            userRepository.save(User("email4-${i}", "name"))
+        }
     }
 
-    @TestConfiguration
-    class TestConfig {
 
-        @Bean
-        fun rSocketRequester(builder: RSocketRequester.Builder) = builder.dataMimeType(MimeTypeUtils.APPLICATION_JSON)
-                .connectWebSocket(URI.create("ws://localhost:8080/rsocket")).block()
-    }
 
 }

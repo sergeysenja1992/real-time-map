@@ -6,7 +6,9 @@ import pp.ua.ssenko.rsoket.config.objectMapper
 import pp.ua.ssenko.rsoket.domain.StorableEntity
 import java.io.File
 
-class FileStorage<T: StorableEntity>(val locationMapsDirectory: String, val name: String, val type: Class<T>): Storage<T> {
+open class FileStorage<T: StorableEntity>(
+    val locationMapsDirectory: String, val name: String, val type: Class<T>
+): Storage<T> {
 
     @Volatile
     private var storage: MutableMap<String, T> = HashMap();

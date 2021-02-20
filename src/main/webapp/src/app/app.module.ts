@@ -2,55 +2,47 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { SettingsComponent } from './settings/settings.component';
 import { AppRoutingModule } from './app-routing.module';
-import { RouterModule, Routes } from "@angular/router";
+import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatGridListModule } from "@angular/material/grid-list";
-import { MatCardModule } from "@angular/material/card";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
-import { MatListModule } from "@angular/material/list";
-import { MatInputModule } from "@angular/material/input";
-import { FormsModule } from "@angular/forms";
-import { MatSelectModule } from "@angular/material/select";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { FileListDialogComponent } from './file-list-dialog/file-list-dialog.component';
-import { RoleManagementComponent } from './role-management/role-management.component';
-import { RoleMatrixComponent } from './role-matrix/role-matrix.component';
+import { LoginComponent } from './login/login.component';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { HttpClientModule } from '@angular/common/http';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MapListComponent } from './map-list/map-list.component';
 
 const routes: Routes = [
-  { path: 'settings', component: SettingsComponent },
-  { path: 'file-list-dialog', component: FileListDialogComponent },
-  { path: 'role-management', component: RoleManagementComponent },
-  { path: 'role-matrix', component: RoleMatrixComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'list', component: MapListComponent },
+  { path: '', component: MapListComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    SettingsComponent,
-    FileListDialogComponent,
-    RoleManagementComponent,
-    RoleMatrixComponent
+    LoginComponent,
+    MapListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes, {useHash: true}),
     BrowserAnimationsModule,
-    MatGridListModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatListModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    FormsModule
+    HttpClientModule,
+    ButtonModule,
+    CardModule,
+    MessagesModule,
+    MessageModule,
+    ToastModule,
+    ProgressSpinnerModule
   ],
   exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
